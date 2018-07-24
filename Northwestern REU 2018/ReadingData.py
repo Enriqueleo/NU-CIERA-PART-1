@@ -89,7 +89,6 @@ tpeak=np.array(tpeak)
 #read in.
 titles=['Amplitudes','b','c','d','k','σ','t0']
 param=[A,b,c,d,k,sig,tpeak]
-print(files)
 for i in range(len(titles)):
     fig=plt.figure(figsize=(13,12))
     plt.hist(param[i],bins=np.linspace(min(param[i]),max(param[i]),60),color='blue',label='string')
