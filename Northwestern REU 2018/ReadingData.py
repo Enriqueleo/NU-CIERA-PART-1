@@ -21,21 +21,10 @@ tpeak=[]
 chisq=[]
 #Finding the parameters of each data set read in.
 for name in files1:
-    if name=="C:/Users/enriq/Desktop/Northwestern REU 2018/DATASET/DATA\SN2005keopt_gFilter_.txt":
-        F=np.loadtxt(name)
-        t=F[:,0][:len(F)-1]
-        mag=F[:,1][:len(F)-1]
-        err=F[:,2][:len(F)-1]
-    elif name=="C:/Users/enriq/Desktop/Northwestern REU 2018/DATASET/DATA\SN2007bdopt_gFilter_.txt":
-        F=np.loadtxt(name)
-        t=F[:,0][:len(F)-2]
-        mag=F[:,1][:len(F)-2]
-        err=F[:,2][:len(F)-2]
-    else:
-        F=np.loadtxt(name)
-        t=F[:,0]
-        mag=F[:,1]
-        err=F[:,2]
+    F=np.loadtxt(name)
+    t=F[:,0]
+    mag=F[:,1]
+    err=F[:,2]
         
     t0=t[np.where(mag==max(mag))[0]]
     bopt=(mag[len(t)-1]-mag[len(t)-3])/(t[len(t)-1]-t[len(t)-3])/max(mag)
@@ -63,6 +52,8 @@ for name in files1:
     plt.xlabel('Epoch (days)',Fontsize='16',color='Black')
     plt.title("Light Curve",Fontsize='18',color='Black')
     plt.title(name)
+    deltaM.append(-f(pa[6]+15,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])+f(pa[6],pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6]))
+    Mmax.append(-21.726+2.698*(-f(pa[6]+15,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])+f(pa[6],pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])))
 
 A=np.array(A)
 b=np.array(b)
@@ -82,3 +73,7 @@ for i in range(len(titles)):
     plt.xlabel('Bins')
     plt.ylabel('Frequency')
     plt.title(titles[i])
+    
+plt.figure()
+plt.scatter(deltaM,Mmax)
+plt.ylabel('Mmax')
