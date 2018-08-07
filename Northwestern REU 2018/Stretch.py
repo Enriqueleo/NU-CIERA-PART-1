@@ -97,7 +97,6 @@ for name in file:
             t.append(F[i,0])
             mag.append(F[i,3])
             err.append(F[i,4])
-    legen.append(name.replace('C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph\\',''))
     t=np.array(t)
     mag=np.array(mag)
     err=np.array(err)
@@ -110,5 +109,4 @@ plt.gca().invert_yaxis()
 plt.xlim([-20,100])
 plt.ylim([20,15])
 plt.title('Standardized',fontsize='20')
-plt.legend(legen)
 
