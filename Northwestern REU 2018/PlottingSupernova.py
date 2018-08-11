@@ -19,7 +19,10 @@ Mmax=[]
 
 RA=[]
 DEC=[]
-Z=[]
+#Distance is porportional to resshift. The larger the redshift the
+#further the distance. Inverting the redshift means small redshifts( closer)
+#bigger the data point.
+Zinverse=[]
 X=[]
 Y=[]
 info=[]
@@ -67,7 +70,7 @@ for name in file:
     X.append(np.pi*(num[1]+num[2]/60+num[3]/3600)/12)
     DEC.append(num[4]+num[5]/60+num[5]/3600)
     Y.append(-np.cos(np.pi*(90+(num[4]+num[5]/60+num[5]/3600))/180))
-    Z.append(num[0]*25000)
+    Zinverse.append(8/num[0])
 
 path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Sur/*.dat'
 file2=glob.glob(path)
@@ -112,19 +115,19 @@ for name in file2:
     X.append(np.pi*(num[1]+num[2]/60+num[3]/3600)/12)
     DEC.append(-(num[4]+num[5]/60+num[5]/3600))
     Y.append(-np.cos(np.pi*(90-(num[4]+num[5]/60+num[5]/3600))/180))
-    Z.append(num[0]*25000)
+    Zinverse.append(8/num[0])
 
-f, ax = plt.subplots(subplot_kw={'projection': "mollweide"},figsize=(10,8))
+f, ax = plt.subplots(subplot_kw={'projection': "mollweide"},figsize=(22,14))
 ax.grid(True)
 Coords=SkyCoord(RA,DEC,unit=(u.degree, u.degree))
-ax.scatter(Coords.ra.wrap_at(180.*u.degree).radian,Coords.dec.radian,c=Mmax,cmap='cool',s=Z,linewidths=1.25,edgecolors='yellow')
+ax.scatter(Coords.ra.wrap_at(180.*u.degree).radian,Coords.dec.radian,c=Mmax,cmap='cool',s=Zinverse,linewidths=1.25,edgecolors='black')
 ax.set_xlabel("RA",fontsize=25)
 ax.set_ylabel("DEC",fontsize=25)
 plt.title('Type Ia Supernova Locations',fontsize=30)
-
-plt.figure()
-plt.scatter(X,Y,cmap='cool',c=Mmax,s=Z,linewidths=1.5,edgecolors='black')
-plt.xlim([-.1,2.1*np.pi])
+plt.savefig("Supernova location.png")
+plt.figure(figsize=(8,6))
+plt.scatter(X,Y,cmap='cool',c=Mmax,s=Zinverse,linewidths=1.25,edgecolors='black')
+plt.xlim([-.1,2.05*np.pi])
 plt.ylim([-1,1])
 plt.ylabel('-Cos(DEC+90)')
 plt.xlabel('RA (radians)')
