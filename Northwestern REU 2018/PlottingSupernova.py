@@ -19,6 +19,9 @@ Mmax=[]
 
 RA=[]
 DEC=[]
+Z=[]
+X=[]
+Y=[]
 info=[]
 
 path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Nor/*.dat'
@@ -61,7 +64,10 @@ for name in file:
     info.append(item[2])
     num = np.loadtxt(re.findall(r"[-+]?\d*\.\d+|\d+",item[2]))
     RA.append(15*(num[1]+num[2]/60+num[3]/3600-12))
-    DEC.append((num[4]+num[5]/60+num[5]/3600))
+    X.append(np.pi*(num[1]+num[2]/60+num[3]/3600)/12)
+    DEC.append(num[4]+num[5]/60+num[5]/3600)
+    Y.append(-np.cos(np.pi*(90+(num[4]+num[5]/60+num[5]/3600))/180))
+    Z.append(num[0]*25000)
 
 path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Sur/*.dat'
 file2=glob.glob(path)
@@ -103,12 +109,30 @@ for name in file2:
     info.append(item[2])
     num = np.loadtxt(re.findall(r"[-+]?\d*\.\d+|\d+",item[2]))
     RA.append(15*(num[1]+num[2]/60+num[3]/3600-12))
+    X.append(np.pi*(num[1]+num[2]/60+num[3]/3600)/12)
     DEC.append(-(num[4]+num[5]/60+num[5]/3600))
+    Y.append(-np.cos(np.pi*(90-(num[4]+num[5]/60+num[5]/3600))/180))
+    Z.append(num[0]*25000)
 
-Mmax=np.array(Mmax)
-f, ax = plt.subplots(subplot_kw={'projection': "mollweide"},figsize=(16,20))
+f, ax = plt.subplots(subplot_kw={'projection': "mollweide"},figsize=(10,8))
 ax.grid(True)
 Coords=SkyCoord(RA,DEC,unit=(u.degree, u.degree))
-ax.scatter(Coords.ra.wrap_at(180.*u.degree).radian,Coords.dec.radian,c=Mmax,cmap='cool',s=100)
-ax.set_xlabel("RA",fontsize=20)
-ax.set_ylabel("DEC",fontsize=20)
+ax.scatter(Coords.ra.wrap_at(180.*u.degree).radian,Coords.dec.radian,c=Mmax,cmap='cool',s=Z,linewidths=1.25,edgecolors='yellow')
+ax.set_xlabel("RA",fontsize=25)
+ax.set_ylabel("DEC",fontsize=25)
+plt.title('Type Ia Supernova Locations',fontsize=30)
+
+plt.figure()
+plt.scatter(X,Y,cmap='cool',c=Mmax,s=Z,linewidths=1.5,edgecolors='black')
+plt.xlim([-.1,2.1*np.pi])
+plt.ylim([-1,1])
+plt.ylabel('-Cos(DEC+90)')
+plt.xlabel('RA (radians)')
+plt.title('Distribution of supernova')
+plt.figure()
+plt.hist(X,bins=np.linspace(0,2*np.pi,20))
+plt.title('RA')
+plt.xlabel('Radians')
+plt.figure()
+plt.hist(Y,bins=np.linspace(-1,1,21))
+plt.title("-Cos(DEC+90)")
