@@ -78,6 +78,7 @@ Meand=np.mean(np.array(d))
 Meank=np.mean(np.array(k))
 Meansig=np.mean(np.array(sig))
 
+
 m15bar=f(15,MeanA,Meanb,Meanc,Meand,Meank,Meansig,0)
 x=np.linspace(0,100,3502)
 for i in range(len(ESOP)):
@@ -86,7 +87,7 @@ for i in range(len(ESOP)):
 
 j=0
 legen=[]
-plt.figure(figsize=(15,12))
+plt.figure(figsize=(16,14))
 for name in file:
     t=[]
     mag=[]
@@ -97,16 +98,18 @@ for name in file:
             t.append(F[i,0])
             mag.append(F[i,3])
             err.append(F[i,4])
+    leg=name.replace('C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph\\','')
+    legen.append(leg.replace('+nir_photo.dat',''))
     t=np.array(t)
     mag=np.array(mag)
     err=np.array(err)
     te=(t-ESOP[j][6])/((1+Z[j])*SSF[j])
-    plt.scatter(te,mag+MeanA-ESOP[j][0])
+    plt.scatter(te,mag+MeanA-ESOP[j][0],s=50)
     plt.xlabel('Days',fontsize='15')
-    plt.ylabel('B',fontsize='15')
+    plt.ylabel('B + offset',fontsize='15')
     j+=1
 plt.gca().invert_yaxis()
 plt.xlim([-20,100])
 plt.ylim([20,15])
-plt.title('Standardized',fontsize='20')
-
+plt.title('Standardized',fontsize='25')
+plt.legend(legen)
