@@ -25,7 +25,7 @@ def f(xraw,A,b,c,d,k,s,t):
     x=xraw-t
     return ((A-A*d)/(1+c))*((1-b*x+c*np.exp(-(x/s)**2))/(1-d*np.exp(-k*x)))
 
-path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph/*.dat'
+path='More DATA/Graph/*.dat'
 file=glob.glob(path)
 for name in file:
     t=[]
@@ -98,7 +98,7 @@ for name in file:
             t.append(F[i,0])
             mag.append(F[i,3])
             err.append(F[i,4])
-    leg=name.replace('C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph\\','')
+    leg=name.replace('More DATA/Graph\\','')
     legen.append(leg.replace('+nir_photo.dat',''))
     t=np.array(t)
     mag=np.array(mag)
