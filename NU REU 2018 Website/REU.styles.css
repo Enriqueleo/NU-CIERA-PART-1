@@ -1,0 +1,46 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    padding: 0px;
+    border: none;
+    color: #000000;
+    font-family: sans-serif;
+    text-align: left;
+    height: 100%;
+}
+
+img {
+	 border: line;
+}
+
+
+p {
+	 text-align: justify;
+}
+
+/* LINKS
+ ****************************************************************/
+a { 
+	 text-decoration: none;
+	 color: #E64A45;  
+} 
+
+a:hover {
+    font-style: italic; 
+}
+
+
+
+
+/* GENERAL FORMATTING
+*******************************************************************/
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+  color: #520063;
+  margin: 0;
+}
+
