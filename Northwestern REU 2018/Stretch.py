@@ -80,14 +80,14 @@ Meansig=np.mean(np.array(sig))
 
 
 m15bar=f(15,MeanA,Meanb,Meanc,Meand,Meank,Meansig,0)
-x=np.linspace(0,100,3502)
+x=np.linspace(0,100,8001)
 for i in range(len(ESOP)):
     QQ=np.where(m15bar<=f(x/(1+Z[i]),ESOP[i][0],ESOP[i][1],ESOP[i][2],ESOP[i][3],ESOP[i][4],ESOP[i][5],0)+MeanA-ESOP[i][0])[0][0]
     SSF.append(x[QQ]/(15+15*Z[i]))
 
 j=0
 legen=[]
-plt.figure(figsize=(16,14))
+plt.figure(figsize=(10,8))
 for name in file:
     t=[]
     mag=[]
@@ -109,7 +109,8 @@ for name in file:
     plt.ylabel('B + offset',fontsize='15')
     j+=1
 plt.gca().invert_yaxis()
-plt.xlim([-20,100])
+plt.xlim([-20,101])
 plt.ylim([20,15])
 plt.title('Standardized',fontsize='25')
 plt.legend(legen)
+plt.savefig("Standardized.png")
