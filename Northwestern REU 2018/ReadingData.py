@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as spo
 import glob
-path1 = 'C:/Users/enriq/Desktop/Northwestern REU 2018/DATASET/DATA/*.txt'
+path1 = 'DATASET/DATA/*.txt'
 
 #I read in the file of the Type Ia Supernova
 #Fitting model equation
