@@ -23,7 +23,7 @@ def f(xraw,A,b,c,d,k,s,t):
     x=xraw-t
     return ((A-A*d)/(1+c))*((1-b*x+c*np.exp(-(x/s)**2))/(1-d*np.exp(-k*x)))
 
-path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph/*.dat'
+path='More DATA/Graph/*.dat'
 file=glob.glob(path)
 for name in file:
     t=[]
