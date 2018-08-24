@@ -19,6 +19,9 @@ def gama(x,A,B,a):
 var=np.random.normal(0,err,len(x))
 g=gama(x,100,5,6)+var
 plt.figure()
+plt.hist(var,bins=100)
+
+plt.figure()
 plt.errorbar(x,g,yerr=err,fmt='o',color='blue')
 
 cf,covr=spo.curve_fit(gama,x,g,[175,5,2],sigma=err)

@@ -15,19 +15,18 @@ err=tp['Uncertainty']
 #Finding the parameters of the model
 t0=t[np.where(mag==max(mag))[0]]
 bopt=(mag[len(t)-1]-mag[len(t)-2])/(t[len(t)-1]-t[len(t)-2])/max(mag)
-pa,covar=spo.curve_fit(f,t,mag,[max(mag),-bopt,\
- -0.01,0.001,0.3,20,t0],sigma=err)
+pa,covar=spo.curve_fit(f,t,mag,[max(mag),-bopt,-0.01,0.001,0.3,20,t0],sigma=err)
 
-x=np.linspace(min(t)-3,max(t)+2.5,250)
+x=np.linspace(min(t)-3,max(t)+2,76)
 chisq=sum(((mag-f(t,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6]))/err)**2)/(len(t)-7)
-plt.figure(figsize=(6,5))
-plt.plot(x,f(x,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6]),'g')
-plt.errorbar(t,mag,yerr=err,fmt='o',color='black')
-plt.ylabel('Magnitude',Fontsize='14')
-plt.xlabel('Epoch (days)',Fontsize='14')
-plt.title("Light Curve",Fontsize='16')
+plt.figure(figsize=(9,6))
+plt.plot(x,f(x,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6]),color='purple')
+plt.errorbar(t,mag,yerr=err,fmt='o',color='red')
+plt.ylabel('Magnitude',Fontsize='16',color='black')
+plt.xlabel('Epoch (days)',Fontsize='16',color='Black')
+plt.title("Light Curve",Fontsize='18',color='Black')
 
-print(f'𝛘2={chisq:5.3}')
-para=['A','b','c','d','k','σ','t0']
+print(f'𝛘2={chisq:5.4}')
+p=['A','b','c','d','k','σ','t0']
 for i in range(len(pa)): 
-    print(f'{para[i]}={pa[i]:4.4}±{np.diag(covar)[i]:4.3}')
+    print(f'{p[i]}={pa[i]:4.6}±{np.diag(covar)[i]:4.3}')
