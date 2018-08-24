@@ -13,7 +13,7 @@ def gauss(x,u,s,a):
     return (a/(s*np.sqrt(2*np.pi)))*np.exp((-1/2)*((x-u)/s)**2)
 #This would be the "y" axis data values but this is randomized a little bit, 
 #since gra is an array of random numbers
-var=np.random.normal(0,err,len(x))
+var=np.random.normal(0,1/5,len(x))
 g=gauss(x,10,2,200)+var
 #Plotting the data with it's uncertainties.
 plt.figure()
