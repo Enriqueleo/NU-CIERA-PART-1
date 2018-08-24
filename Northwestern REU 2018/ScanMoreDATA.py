@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import glob
 import pandas as pa
 import numpy as np
-path='C:/Users/enriq/Desktop/Northwestern REU 2018/More DATA/Graph/*.dat'
+path='More DATA/Graph/*.dat'
 file=glob.glob(path)
 for name in file:
     t=[]
