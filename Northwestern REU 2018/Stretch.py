@@ -9,8 +9,6 @@ Z=[]
 SSF=[]
 info=[]
 
-deltaM=[]
-Mmax=[]
 A=[]
 b=[]
 c=[]
@@ -24,7 +22,6 @@ ESOP=[]
 def f(xraw,A,b,c,d,k,s,t):
     x=xraw-t
     return ((A-A*d)/(1+c))*((1-b*x+c*np.exp(-(x/s)**2))/(1-d*np.exp(-k*x)))
-
 path='More DATA/Graph/*.dat'
 file=glob.glob(path)
 for name in file:
@@ -67,27 +64,24 @@ for name in file:
     info.append(item[2])
     num = np.loadtxt(re.findall(r"[-+]?\d*\.\d+|\d+",item[2]))
     Z.append(num[0])
-    
-    deltaM.append(f(pa[6]+15,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])-f(pa[6],pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6]))
-    Mmax.append(-21.726+2.698*(f(pa[6]+15,pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])-f(pa[6],pa[0],pa[1],pa[2],pa[3],pa[4],pa[5],pa[6])))
-
+   
 MeanA=np.mean(np.array(A))
 Meanb=np.mean(np.array(b))
 Meanc=np.mean(np.array(c))
 Meand=np.mean(np.array(d))
 Meank=np.mean(np.array(k))
 Meansig=np.mean(np.array(sig))
+Zme=np.mean(np.array(Z))
 
-
-m15bar=f(15,MeanA,Meanb,Meanc,Meand,Meank,Meansig,0)
-x=np.linspace(0,100,8001)
+m15bar=f(15/(1+Zme),MeanA,Meanb,Meanc,Meand,Meank,Meansig,0)
+x=np.linspace(0,101,15000)
 for i in range(len(ESOP)):
     QQ=np.where(m15bar<=f(x/(1+Z[i]),ESOP[i][0],ESOP[i][1],ESOP[i][2],ESOP[i][3],ESOP[i][4],ESOP[i][5],0)+MeanA-ESOP[i][0])[0][0]
     SSF.append(x[QQ]/(15+15*Z[i]))
 
 j=0
 legen=[]
-plt.figure(figsize=(10,8))
+plt.figure(figsize=(8,8))
 for name in file:
     t=[]
     mag=[]
@@ -106,7 +100,7 @@ for name in file:
     te=(t-ESOP[j][6])/((1+Z[j])*SSF[j])
     plt.scatter(te,mag+MeanA-ESOP[j][0],s=50)
     plt.xlabel('Days',fontsize='15')
-    plt.ylabel('B + offset',fontsize='15')
+    plt.ylabel('B+offset',fontsize='15')
     j+=1
 plt.gca().invert_yaxis()
 plt.xlim([-20,101])
